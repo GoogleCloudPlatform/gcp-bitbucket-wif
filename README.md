@@ -1,26 +1,14 @@
-# Bitbucket Workload Identity Federation
+# Terraform Google Cloud Project Factory with Workload Identity Federation (WIF)
 
 ## Overview
 
-This Terraform configuration is designed to create a Google Cloud Platform (GCP) project, establish a service account, and deploy a workload identity federation pool and provider. The primary goal is to enable the use of Workload Identity federation within Bitbucket for seamless and secure cloud infrastructure management.
-
-## Files Description
-
-- **main.tf**: The core Terraform file that defines the resources required for creating the GCP project and service account. It also sets up the workload identity federation pool and provider.
-
-- **outputs.tf**: This file outlines the outputs that are generated once the Terraform scripts are successfully applied. These outputs typically include resource IDs and other critical details.
-
-- **provider.tf**: Defines the Terraform provider configuration, in this case, specifying Google Cloud as the provider.
-
-- **terraform.tfvars**: Contains variable values that are used throughout the Terraform configuration. This file should be configured with specific values pertinent to your GCP setup.
-
-- **variables.tf**: Declares variables used across the Terraform configuration, ensuring modularity and flexibility of the setup.
+This Terraform configuration is designed to set up a Google Cloud project with Workload Identity Federation. The primary goal is to enable the use of Workload Identity federation within Bitbucket for seamless and secure cloud infrastructure management. It leverages the `terraform-google-modules/project-factory/google` module for project creation and sets up necessary resources and IAM roles for integrating Bitbucket with Google Cloud using WIF.
 
 ## Prerequisites
 
-- Terraform installed on your machine.
-- Access to a Google Cloud Platform account.
-- Necessary permissions to create and manage GCP resources.
+- [Terraform](https://developer.hashicorp.com/terraform/install)
+- A Google Cloud account with billing set up
+- A Bitbucket Workspace for OIDC configuration
 
 ## APIs
 
@@ -36,17 +24,41 @@ the base project where the Service Account was created:
 - Admin SDK - `admin.googleapis.com`
   [troubleshooting](docs/TROUBLESHOOTING.md#missing-api-admingoogleapiscom)
 
+## Created Resources
+
+- **Project**: Automatically creates a new Google Cloud project to host Workload Identity resources
+- **Workload Identity Pool and Provider**: Sets up a workload identity pool and provider for Bitbucket.
+- **Service Account Creation**: Creates a Google service account with specific roles for WIF. This Service Account will be used to deploy other GCP resources. 
+- **IAM Role Bindings**: Configures necessary IAM roles and binds them to the service account.
+- **Terraform Outputs**: Provides essential information for OIDC configuration.
+
 ## Usage
 
-1. Clone this repository to your local machine.
-2. Modify `terraform.tfvars` with your specific GCP project details.
-3. Initialize the Terraform configuration using `terraform init`.
-4. Apply the Terraform configuration using `terraform apply`.
+1. **Initialize Variables**: Set up the required variables in a `.tfvars` file or directly in the Terraform configuration.
+   - `bitbucket_workspace`: Your Bitbucket workspace.
+   - `allowed_audiences`: Allowed audiences for OIDC.
+   - `sa-roles`: Roles to be assigned to the service account.
+   - `project_name`, `org_id`, `parent`, `billing_account`: Project setup variables.
+   - `repository_uuid`: Bitbucket repository UUID.
+   - `backend_bucket_name`: Bucket name for Terraform state.
 
-## Contributing
+2. **Terraform Commands**: Use standard Terraform commands to initialize, plan, and apply your configuration.
+   - `terraform init`
+   - `terraform plan`
+   - `terraform apply`
 
-This project welcomes contributions and suggestions. Feel free to fork the repository and submit pull requests.
+## Notes
+
+- Ensure you have appropriate permissions in your Google Cloud and Bitbucket accounts.
+- Review and adjust IAM roles according to your specific security and operational requirements.
+- The configuration is licensed under the Apache License, Version 2.0.
+
+## Disclaimer
+
+This configuration is provided "as is" without any warranties or conditions. Use it at your own risk.
 
 ## License
 
-This Terraform configuration is distributed under the Apache License, Version 2.0. See the LICENSE file in each Terraform file for more details.
+Copyright 2022 Google LLC
+
+Licensed under the Apache License, Version 2.0. See LICENSE for details.
