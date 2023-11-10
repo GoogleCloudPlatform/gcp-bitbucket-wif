@@ -22,7 +22,7 @@ variable "allowed_audiences" {
   type = list(any)
 }
 
-variable "sa-roles" {
+variable "sa_roles" {
   type = list(any)
 }
 

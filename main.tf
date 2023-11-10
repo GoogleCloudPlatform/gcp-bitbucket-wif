@@ -71,7 +71,7 @@ resource "google_service_account_iam_member" "sa-iam" {
 }
 
 resource "google_project_iam_member" "sa-project" {
-  for_each   = toset(var.sa-roles)
+  for_each   = toset(var.sa_roles)
   role       = each.value
   member     = "serviceAccount:${google_service_account.sa.email}"
   project    = module.wif-project.project_id
