@@ -1,0 +1,42 @@
+# Copyright 2022 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+image: google/cloud-sdk
+pipelines:
+  branches: 
+    main:
+      - step:
+          name: setup terraform
+          script:
+            - apt-get update && apt-get install unzip wget -y 
+            - wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip || echo fine...
+            - unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip 
+            - yes | cp terraform /usr/bin/
+            - ls /usr/bin
+          artifacts:
+            - terraform
+
+      - step:
+          name: terraform apply
+          oidc: true
+          script: 
+            - cp terraform /usr/bin/
+            - ls . /usr/bin/
+            - export SERVICE_ACCOUNT_EMAIL="${GCP_SERVICE_ACCOUNT}"
+            - ./get_oidctoken.sh
+            - export GOOGLE_APPLICATION_CREDENTIALS=`pwd`/.gcp_temp_cred.json
+            - /usr/bin/terraform init -backend-config="bucket=${STATE_BUCKET}" -backend-config="prefix=${BITBUCKET_REPO_FULL_NAME}" 
+            - /usr/bin/terraform plan
+            - /usr/bin/terraform apply -auto-approve
+
+
