@@ -31,8 +31,5 @@ repository_uuid = "your-repository-uuid" # Example: "{12345678-90ab-cdef-1234-56
 backend_bucket_name = "your-backend-bucket-name" # Example: "my-backend-bucket"
 
 sa_roles = [
-  "roles/viewer",
-  "roles/iam.serviceAccountUser",
   "roles/storage.admin",
-  "roles/storage.objectAdmin",
 ]

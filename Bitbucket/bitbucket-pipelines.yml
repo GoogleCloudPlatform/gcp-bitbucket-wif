@@ -25,7 +25,7 @@ pipelines:
             - ls /usr/bin
           artifacts:
             - terraform
-
+            
       - step:
           name: terraform apply
           oidc: true
@@ -35,8 +35,7 @@ pipelines:
             - export SERVICE_ACCOUNT_EMAIL="${GCP_SERVICE_ACCOUNT}"
             - ./get_oidctoken.sh
             - export GOOGLE_APPLICATION_CREDENTIALS=`pwd`/.gcp_temp_cred.json
+            - export TF_VAR_project=$PROJECT_NAME
             - /usr/bin/terraform init -backend-config="bucket=${STATE_BUCKET}" -backend-config="prefix=${BITBUCKET_REPO_FULL_NAME}" 
             - /usr/bin/terraform plan
             - /usr/bin/terraform apply -auto-approve
-
-
