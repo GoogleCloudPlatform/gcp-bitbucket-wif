@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 org_id = "your-org-id" # Example: "123456789012"
 
 parent = "your-parent-id" # Example: "folders/123456789012"
@@ -30,6 +30,6 @@ repository_uuid = "your-repository-uuid" # Example: "{12345678-90ab-cdef-1234-56
 
 backend_bucket_name = "your-backend-bucket-name" # Example: "my-backend-bucket"
 
-sa_roles = [
+sa_roles = [ # The roles for your WIF service account. In the example we will be deploying a GCS bucket, adjust the roles accordingly. 
   "roles/storage.admin",
 ]

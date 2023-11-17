@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 resource "google_storage_bucket" "bucket" {
   project       = var.project
   name          = lower("${var.project}-test-bucket")
-  location      = "EU"
+  location      = "US"
   force_destroy = true
 }
 

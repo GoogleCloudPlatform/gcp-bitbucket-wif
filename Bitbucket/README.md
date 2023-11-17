@@ -14,20 +14,12 @@ This repository contains an example Bitbucket pipeline and Terraform configurati
 
 - **provider.tf**: Specifies the Terraform provider configuration, particularly for GCP.
 
-- **terraform.tfvars**: Contains variable values for the Terraform configuration. This should be configured with specific values for your GCP environment.
-
 - **variables.tf**: Declares variables used in the Terraform configuration. This adds flexibility and modularity to the Terraform setup.
 
 ## Prerequisites
 
-- A Google Cloud Platform (GCP) project with the Bitbucket WIF deployed
-- A Bitbucket account with a repository for CI/CD operations.
-
-## Usage
-
-1. Fork or clone this repository to your Bitbucket account.
-2. Configure `terraform.tfvars` with your specific GCS bucket and GCP project details.
-3. Use the Bitbucket pipeline to apply the Terraform configuration automatically upon code push, or run Terraform commands manually for deployment.
+- A Google Cloud Platform (GCP) project with the Bitbucket WIF project deployed
+- A Bitbucket workspace with a repository for CI/CD operations.
 
 ## Repository Configuration
 
@@ -39,14 +31,10 @@ This repository contains an example Bitbucket pipeline and Terraform configurati
    |---------------------------------|-----------------------------------------------------------------------------------|-------------------------------------------------------------|
    | `TERRAFORM_VERSION`             | The version of Terraform you want to use                                          | `1.4.2`                                                   |
    | `STATE_BUCKET`                   | The Google Cloud Storage bucket where your Terraform state files will be stored | `my-terraform-state-bucket`                              |
-   | `GCP_WORKLOAD_IDENTITY_PROVIDER`| The fully qualified identifier of your Google Cloud Workload Identity Provider *(See **project-factory** outputs)* | `projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID` |
-   | `GCP_SERVICE_ACCOUNT`           | The email address of your Google Cloud Service Account *(See **project-factory** outputs)* | `my-service-account@my-project.iam.gserviceaccount.com` |
-   | `PROJECT_NAME`                  | Your Google Cloud project ID *(See **project-factory** outputs)* | `my-gcp-project`                                             |
-1. add a `terraform.tfvars` that specifies the project you want the bucket to be created in
-    ```hcl
-    project = "my-gcp-project"
-    ```
-1. Commit to your repository and trigger a build
+   | `GCP_WORKLOAD_IDENTITY_PROVIDER`| The fully qualified identifier of your Google Cloud Workload Identity Provider | `projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID` |
+   | `GCP_SERVICE_ACCOUNT`           | The email address of your Google Cloud Service Account | `my-service-account@my-project.iam.gserviceaccount.com` |
+   | `PROJECT_NAME`                  | Your Google Cloud project ID | `my-gcp-project`                                             |
+3. Commit to your repository or manually trigger the pipeline.
 
 ## Contributing
 

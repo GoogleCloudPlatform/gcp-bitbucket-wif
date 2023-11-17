@@ -26,7 +26,7 @@ module "wif-project" {
   billing_account   = var.billing_account
   folder_id         = var.parent
   create_project_sa = false
-  activate_apis     = [
+  activate_apis = [
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
     "cloudresourcemanager.googleapis.com",
