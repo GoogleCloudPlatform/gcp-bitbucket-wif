@@ -44,10 +44,8 @@ resource "google_iam_workload_identity_pool_provider" "wif-provider-bitbucket" {
   workload_identity_pool_provider_id = "bitbucket-provider-${random_id.rand.hex}"
   project                            = module.wif-project.project_id
   attribute_mapping = {
-    "google.subject"                        = "assertion.sub"
-    "attribute.sub"                         = "assertion.sub"
-    "attribute.deployment_environment_uuid" = "assertion.deploymentEnvironmentUuid"
-    "attribute.repository_uuid"             = "assertion.repositoryUuid"
+    "google.subject" = "assertion.sub"
+    "attribute.sub"  = "assertion.sub"
   }
   oidc {
     issuer_uri        = "https://api.bitbucket.org/2.0/workspaces/${var.bitbucket_workspace}/pipelines-config/identity/oidc"
@@ -67,7 +65,7 @@ resource "google_service_account" "sa" {
 resource "google_service_account_iam_member" "sa-iam" {
   service_account_id = google_service_account.sa.name
   role               = "roles/iam.workloadIdentityUser"
-  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.wif-pool-bitbucket.name}/attribute.repository_uuid/${var.repository_uuid}"
+  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.wif-pool-bitbucket.name}/*"
 }
 
 resource "google_project_iam_member" "sa-project" {

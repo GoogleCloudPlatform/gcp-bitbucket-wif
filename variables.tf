@@ -42,10 +42,6 @@ variable "billing_account" {
   type = string
 }
 
-variable "repository_uuid" {
-  type = string
-}
-
 variable "backend_bucket_name" {
   type = string
 }

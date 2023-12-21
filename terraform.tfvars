@@ -26,8 +26,6 @@ allowed_audiences = ["your-allowed-audiences"] # Example: ["ari:cloud:bitbucket:
 
 project_name = "your-project-name" # Example: "my-project"
 
-repository_uuid = "your-repository-uuid" # Example: "{12345678-90ab-cdef-1234-567890abcdef}"
-
 backend_bucket_name = "your-backend-bucket-name" # Example: "my-backend-bucket"
 
 sa_roles = [ # The roles for your WIF service account. In the example we will be deploying a GCS bucket, adjust the roles accordingly. 
