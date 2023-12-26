@@ -38,7 +38,6 @@ the base project where the Service Account was created:
    - `allowed_audiences`: Allowed audiences for OIDC.
    - `sa-roles`: Roles to be assigned to the service account.
    - `project_name`, `org_id`, `parent`, `billing_account`: GCP specific variables.
-   - `repository_uuid`: Bitbucket repository UUID.
    - `backend_bucket_name`: Bucket name for Terraform state.
 
 3. **Terraform Commands**: Use standard Terraform commands to initialize, plan, and apply your configuration.
